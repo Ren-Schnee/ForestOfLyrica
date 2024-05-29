@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<title>Island Adventure</title>
+
+<style>
+#stage
+{
+    position: relative;
+    width: 384px;
+    height: 384px;
+}
+.cell
+{
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+}
+p
+{
+    width: 400px;
+}
+</style>
+
+<div id="stage"></div>
+<p id="output"></p>
+
+<script>
+var stage = document.querySelector("#stage");
+var output = document.querySelector("#output");
+//add a keyboard listener
+
+//The game map
+var map = 
+[
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+];
+
+//Map code
+var ESPAI = 0; //WATER
+var CERCLE = 1; //ISLAND
+var CREU = 2; //PIRATE
+//The size of each cell
+var SIZE = 64;
+//number of rows and columns
+var ROWS = map.length;
+var COLUMNS = map[0].length;
+//Arrow key codes
+var UP = 38;
+var DOWN = 40;
+var RIGHT = 39;
+var LEFT = 37;
+
+//An automatic way of setting the ship's start position
+var shipRow;
+var shipColumn;
+
+
+
+render();
+
+
+
+
+function render(){
+
+    if(stage.hasChildNodes())
+    {
+        for (var i = 0; i < ROWS * COLUMNS; i++)
+        {
+            stage.removeChild(stage.firstChild);
+        }
+    }
+
+    //Render the game by looping with the famous two for's
+    var contadorID = 1
+    for (var row = 0; row < ROWS; row++)
+    {
+        for (var column = 0; column < COLUMNS; column++)
+        {
+            //create a img tag called cell
+            var cell = document.createElement("img");
+            var idtogive = "id" + contadorID;
+            contadorID += 1;
+            //Set it's id to "cell"
+            cell.setAttribute("id", idtogive);
+            cell.setAttribute("class", "cell");
+        /*    cell.addEventListener("click", function myfunction() {
+            
+                console.log("Cell click");
+                this.style.backgroundColor = "blue";
+            })*/
+            //cell.onclick = PutCross
+
+            //add the img tag to the stage <div> tag
+            stage.appendChild(cell);
+
+            //Find the correct image for the cell
+            switch(map[row][column])
+            {
+                case ESPAI:
+                    cell.style.backgroundColor = "white";
+                    break;
+                case CERCLE:
+                    cell.style.backgroundColor = "blue";
+                    break;
+                case CREU:
+                    cell.style.backgroundColor = "red";
+                    break;
+            }
+            //Position the cell
+            cell.style.top = row * SIZE + "px";
+            cell.style.left = column * SIZE + "px";
+        }
+    }
+}
+
+// Define your reRender function
+function reRender() {
+    for (var row = 0; row < ROWS; row++) {
+        for (var column = 0; column < COLUMNS; column++) {
+            var cellId = "id" + (row * COLUMNS + column + 1);
+            var cell = document.getElementById(cellId);
+            switch(map[row][column]) {
+                case ESPAI:
+                    cell.style.backgroundColor = "white";
+                    break;
+                case CERCLE:
+                    cell.style.backgroundColor = "blue";
+                    break;
+                case CREU:
+                    cell.style.backgroundColor = "red";
+                    break;
+            }
+        }
+    }
+}
+
+    document.getElementById("id1").addEventListener("click", function() {           
+        map[0][0] = 1;
+        reRender();
+    });
+    document.getElementById("id2").addEventListener("click", function() {
+        map[0][1] = 1;
+        reRender();
+    });
+    document.getElementById("id3").addEventListener("click", function() {
+        map[0][2] = 1;
+        reRender();
+    });
+    document.getElementById("id4").addEventListener("click", function() {
+        map[1][0] = 1;
+        reRender();
+    });
+    document.getElementById("id5").addEventListener("click", function() {
+        map[1][1] = 1;
+        reRender();
+    });
+    document.getElementById("id6").addEventListener("click", function() {
+        map[1][2] = 1;
+        reRender();
+    });
+    document.getElementById("id7").addEventListener("click", function() {
+        map[2][0] = 1;
+        reRender();
+    });
+    document.getElementById("id8").addEventListener("click", function() {
+        map[2][1] = 1;
+        reRender();
+    });
+    document.getElementById("id9").addEventListener("click", function() {
+        map[2][2] = 1;
+        reRender();
+    });
+</script>
